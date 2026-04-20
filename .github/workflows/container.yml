@@ -22,15 +22,17 @@ jobs:
           echo "${{ secrets.AWS_S3_BUCKET_NAME }}" | wc -c
 
       # 3. Node.js környezet beállítása
+      - name: Install dependencies
+        run: npm install
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
-          cache: "npm"
+          node-version: "24.12.0"
 
       # 4. Függőségek telepítése
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
       # 5. A projekt buildelése
       - name: Build project
