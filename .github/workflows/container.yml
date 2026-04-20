@@ -1,38 +1,50 @@
-name: deploy-container
-env:
-  BUCKET_NAME: ${{ secrets.AWS_S3_BUCKET_NAME }}
-  run: echo "A név hossza ${{ secrets.AWS_S3_BUCKET_NAME }}" | wc -c
+name: CI/CD Build and Deploy to S3
+
 on:
   push:
-    branches: [main, master]
-    paths:
-      - "packages/container/**"
+    branches:
+      - main
 
-defaults:
-  run:
-    working-directory: packages/container
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      # 1. Forráskód letöltése
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
+      # 2. ELLENŐRZÉS: Itt nézzük meg, üres-e a bucket név
+      # Ha a szám nagyobb mint 1, akkor a secret létezik és be van töltve.
+      - name: Check if S3 Bucket Name secret is set
+        run: |
+          echo -n "A bucket név hossza: "
+          echo "${{ secrets.AWS_S3_BUCKET_NAME }}" | wc -c
+
+      # 3. Node.js környezet beállítása
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: "24.12.0"
+          node-version: "20"
+          cache: "npm"
 
+      # 4. Függőségek telepítése
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
-      - name: Build the container app
+      # 5. A projekt buildelése
+      - name: Build project
         run: npm run build
 
-      - uses: shinyinc/action-aws-cli@v1.2
-      - run: aws s3 sync dist s3://${{ secrets.AWS_S3_BUCKET_NAME }}/container/latest
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: eu-central-1
+      # 6. AWS hitelesítés
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-central-1
+
+      # 7. Feltöltés S3-ra
+      - name: Deploy to S3
+        run: |
+          aws s3 sync ./dist s3://${{ secrets.AWS_S3_BUCKET_NAME }} --delete
