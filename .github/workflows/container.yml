@@ -44,8 +44,7 @@ on:
     branches:
       - master
     paths:
-      - "packages/container/**"
-      - "packages/container/**"
+      - packages/container/**
 
 jobs:
   build-and-deploy:
