@@ -51,7 +51,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Forráskód letöltése
+      # 1. Forráskód letöltésessss
       - name: Checkout Repository
         uses: actions/checkout@v4
 
