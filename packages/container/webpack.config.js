@@ -6,7 +6,9 @@ const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPl
 const ExternalTemplateRemotesPlugin = require("external-remotes-plugin");
 const packageJson = require("./package.json");
 
-const isProduction = process.env.NODE_ENV === "production";
+const isProduction = process.env.PROD_DOMAIN === "production";
+
+const domain = process.env.DOMAIN || "localhost";
 
 /** @type {import("webpack").Configuration} */
 const config = {
@@ -26,9 +28,6 @@ const config = {
       shared: packageJson.dependencies,
     }),
     new ExternalTemplateRemotesPlugin(),
-    new HtmlWebpackPlugin({
-      template: "./public/index.html",
-    }),
     // Add your plugins here
     // Learn more about plugins from https://webpack.js.org/configuration/plugins/
   ],
@@ -52,8 +51,23 @@ const config = {
 module.exports = () => {
   if (isProduction) {
     config.mode = "production";
+    config.output = {
+      filename: "[name].[contenthash].js",
+      clean:true
+    };
+    config.plugins = [
+      new ModuleFederationPlugin({
+        name: "container",
+        remotes: {
+          marketing: `marketing@${domain}/marketing/remoteEntry.js`,
+        },
+      }),
+    ];
   } else {
     config.mode = "development";
+    config.plugins = [...config.plugins,  new HtmlWebpackPlugin({
+        template: "./public/index.html",
+      })]
   }
   return config;
 };

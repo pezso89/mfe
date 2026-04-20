@@ -3,7 +3,7 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
-const packageJson = require('./package.json');
+const packageJson = require("./package.json");
 
 const isProduction = process.env.NODE_ENV === "production";
 
@@ -54,6 +54,21 @@ const config = {
 module.exports = () => {
   if (isProduction) {
     config.mode = "production";
+    config.output = {
+      filename: "[name].[contenthash].js",
+      clean: true
+    };
+    config.plugins = [
+      new ModuleFederationPlugin({
+        name: "container",
+        exposes: {
+          "./MarketingApp": "./src/App",
+        }
+      }),
+      new HtmlWebpackPlugin({
+        template: "./public/index.html",
+      }),
+    ];
   } else {
     config.mode = "development";
   }
