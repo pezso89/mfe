@@ -43,6 +43,8 @@ on:
   push:
     branches:
       - master
+    paths:
+      - "packages/container/**"
 
 jobs:
   build-and-deploy:
