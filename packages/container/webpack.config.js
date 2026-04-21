@@ -20,13 +20,6 @@ const config = {
   },
   devtool: "source-map",
   plugins: [
-    new ModuleFederationPlugin({
-      name: "container",
-      remotes: {
-        marketing: "marketing@http://localhost:8081/remoteEntry.js",
-      },
-      shared: packageJson.dependencies,
-    }),
     new ExternalTemplateRemotesPlugin(),
     new HtmlWebpackPlugin({
       template: "./public/index.html",
@@ -62,12 +55,23 @@ module.exports = () => {
       new ModuleFederationPlugin({
         name: "container",
         remotes: {
-          marketing: `marketing@${domain}/marketing/latest/remoteEntry.js`,
+          marketing: `marketing@https://d3d57pm3dn7wc5.cloudfront.net/marketing/latest/remoteEntry.js`,
         },
       }),
     ];
   } else {
     config.mode = "development";
+    config.plugins = [
+      new ModuleFederationPlugin({
+        name: "container",
+        remotes: {
+          marketing: "marketing@http://localhost:8081/remoteEntry.js",
+        },
+      }),
+      new HtmlWebpackPlugin({
+        template: "./public/index.html",
+      }),
+    ];
   }
   return config;
 };
