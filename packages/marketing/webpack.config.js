@@ -6,6 +6,7 @@ const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPl
 const packageJson = require("./package.json");
 
 const isProduction = process.env.NODE_ENV === "production";
+const domain = process.env.PROD_DOMAIN ?? "localhost";
 
 /** @type {import("webpack").Configuration} */
 const config = {
@@ -56,6 +57,7 @@ module.exports = () => {
     config.mode = "production";
     config.output = {
       filename: "[name].[contenthash].js",
+      publicPath: `/marketing/latest/`,
       clean: true
     };
     config.plugins = [

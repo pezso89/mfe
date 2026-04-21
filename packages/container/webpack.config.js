@@ -53,7 +53,6 @@ module.exports = () => {
     config.mode = "production";
     config.output = {
       filename: "[name].[contenthash].js",
-      publicPath: `/marketing/latest/`,
       clean:true
     };
     config.plugins = [
