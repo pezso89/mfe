@@ -8,7 +8,7 @@ const packageJson = require("./package.json");
 
 const isProduction = process.env.PROD_DOMAIN === "production";
 
-const domain = process.env.DOMAIN || "localhost";
+const domain = process.env.PROD_DOMAIN ?? "localhost";
 
 /** @type {import("webpack").Configuration} */
 const config = {
@@ -53,13 +53,14 @@ module.exports = () => {
     config.mode = "production";
     config.output = {
       filename: "[name].[contenthash].js",
+      publicPath: `/marketing/latest/`,
       clean:true
     };
     config.plugins = [
       new ModuleFederationPlugin({
         name: "container",
         remotes: {
-          marketing: `marketing@${domain}/marketing/remoteEntry.js`,
+          marketing: `marketing@${domain}/marketing/latest/remoteEntry.js`,
         },
       }),
     ];
