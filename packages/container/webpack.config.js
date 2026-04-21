@@ -28,6 +28,9 @@ const config = {
       shared: packageJson.dependencies,
     }),
     new ExternalTemplateRemotesPlugin(),
+    new HtmlWebpackPlugin({
+      template: "./public/index.html",
+    }),
     // Add your plugins here
     // Learn more about plugins from https://webpack.js.org/configuration/plugins/
   ],
@@ -53,7 +56,7 @@ module.exports = () => {
     config.mode = "production";
     config.output = {
       filename: "[name].[contenthash].js",
-      publicPath: '/container/latest/',
+      publicPath: "/container/latest/",
     };
     config.plugins = [
       new ModuleFederationPlugin({
@@ -65,9 +68,6 @@ module.exports = () => {
     ];
   } else {
     config.mode = "development";
-    config.plugins = [...config.plugins,  new HtmlWebpackPlugin({
-        template: "./public/index.html",
-      })]
   }
   return config;
 };
