@@ -10,13 +10,6 @@ const isProduction = process.env.NODE_ENV === "production";
 /** @type {import("webpack").Configuration} */
 const config = {
   entry: "./src/index.ts",
-  devServer: {
-    static: "./dist",
-    hot: true,
-    historyApiFallback: true,
-    port: 8081,
-    open: true,
-  },
   devtool: "source-map",
   plugins: [
     new ModuleFederationPlugin({
@@ -26,9 +19,6 @@ const config = {
         "./MarketingApp": "./src/App",
       },
       shared: packageJson.dependencies,
-    }),
-    new HtmlWebpackPlugin({
-      template: "./public/index.html",
     }),
 
     // Add your plugins here
@@ -57,21 +47,31 @@ module.exports = () => {
     config.output = {
       filename: "[name].[contenthash].js",
       publicPath: `/marketing/latest/`,
-      clean: true
+      clean: true,
     };
     config.plugins = [
       new ModuleFederationPlugin({
-        name: "container",
+        name: "marketing",
+        filename: 'remoteEntry.js',
         exposes: {
           "./MarketingApp": "./src/App",
-        }
-      }),
-      new HtmlWebpackPlugin({
-        template: "./public/index.html",
+        },
       }),
     ];
   } else {
     config.mode = "development";
+    config.devServer = {
+      port: 8081,
+      historyApiFallback: {
+        index: "index.html",
+      },
+    };
+    config.plugins = [
+      ...config.plugins,
+      new HtmlWebpackPlugin({
+        template: "./public/index.html",
+      }),
+    ];
   }
   return config;
 };
