@@ -8,6 +8,7 @@ const packageJson = require("./package.json");
 
 /** @type {import("webpack").Configuration} */
 const config = {
+  entry: "./src/index.ts",
   plugins: [
     new HtmlWebpackPlugin({
       template: "./public/index.html",
