@@ -1,27 +1,36 @@
-import { Link } from 'react-router-dom';
-import { Theme, useTheme } from '@mui/material/styles';
-import { makeStyles } from '@mui/styles';
-import MaterialLink from '@mui/material/Link';
-import {Typography, Container, Grid, CardMedia, CardContent, CardActions, Card, Button } from '@mui/material';
-import React from 'react';
+import { Link } from "react-router-dom";
+import { Theme, useTheme } from "@mui/material/styles";
+import { makeStyles } from "@mui/styles";
+import MaterialLink from "@mui/material/Link";
+import {
+  Typography,
+  Container,
+  Grid,
+  CardMedia,
+  CardContent,
+  CardActions,
+  Card,
+  Button,
+} from "@mui/material";
+import React from "react";
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
+      {"Copyright © "}
       <MaterialLink component={Link} to="/" color="inherit">
         Your Website
-      </MaterialLink>{' '}
+      </MaterialLink>{" "}
       {new Date().getFullYear()}
-      {'.'}
+      {"."}
     </Typography>
   );
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
-  '@global': {
+  "@global": {
     a: {
-      textDecoration: 'none',
+      textDecoration: "none",
     },
   },
   icon: {
@@ -39,12 +48,12 @@ const useStyles = makeStyles((theme: Theme) => ({
     paddingBottom: useTheme().spacing(8),
   },
   card: {
-    height: '100%',
-    display: 'flex',
-    flexDirection: 'column',
+    height: "100%",
+    display: "flex",
+    flexDirection: "column",
   },
   cardMedia: {
-    paddingTop: '56.25%', // 16:9
+    paddingTop: "56.25%", // 16:9
   },
   cardContent: {
     flexGrow: 1,
@@ -73,7 +82,7 @@ export default function Album() {
               color="textPrimary"
               gutterBottom
             >
-              Home Page
+              Home Page1
             </Typography>
             <Typography
               variant="h5"
