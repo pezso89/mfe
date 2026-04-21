@@ -9,21 +9,6 @@ const isProduction = process.env.NODE_ENV === "production";
 
 /** @type {import("webpack").Configuration} */
 const config = {
-  entry: "./src/index.ts",
-  devtool: "source-map",
-  plugins: [
-    new ModuleFederationPlugin({
-      name: "marketing",
-      filename: "remoteEntry.js",
-      exposes: {
-        "./MarketingApp": "./src/App",
-      },
-      shared: packageJson.dependencies,
-    }),
-
-    // Add your plugins here
-    // Learn more about plugins from https://webpack.js.org/configuration/plugins/
-  ],
   module: {
     rules: [
       {
@@ -42,36 +27,5 @@ const config = {
 };
 
 module.exports = () => {
-  if (isProduction) {
-    config.mode = "production";
-    config.output = {
-      filename: "[name].[contenthash].js",
-      publicPath: `/marketing/latest/`,
-      clean: true,
-    };
-    config.plugins = [
-      new ModuleFederationPlugin({
-        name: "marketing",
-        filename: 'remoteEntry.js',
-        exposes: {
-          "./MarketingApp": "./src/App",
-        },
-      }),
-    ];
-  } else {
-    config.mode = "development";
-    config.devServer = {
-      port: 8081,
-      historyApiFallback: {
-        index: "index.html",
-      },
-    };
-    config.plugins = [
-      ...config.plugins,
-      new HtmlWebpackPlugin({
-        template: "./public/index.html",
-      }),
-    ];
-  }
   return config;
 };
