@@ -54,7 +54,6 @@ module.exports = () => {
     config.output = {
       filename: "[name].[contenthash].js",
       publicPath: '/container/latest/',
-      clean:true
     };
     config.plugins = [
       new ModuleFederationPlugin({

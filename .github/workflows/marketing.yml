@@ -3,7 +3,7 @@ name: deploy-marketing
 on:
   push:
     branches:
-      - main
+      - master
     paths:
       - "packages/marketing/**"
 
@@ -16,11 +16,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - run: npm install
       - run: npm run build
-        env:
-          PROD_DOMAIN: ${{ secrets.PROD_DOMAIN }}
 
       - uses: shinyinc/action-aws-cli@v1.2
       - run: aws s3 sync dist s3://${{ secrets.AWS_S3_BUCKET_NAME }}/marketing/latest
