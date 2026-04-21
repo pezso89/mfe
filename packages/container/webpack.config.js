@@ -55,7 +55,7 @@ module.exports = () => {
       new ModuleFederationPlugin({
         name: "container",
         remotes: {
-          marketing: `marketing@https://d3d57pm3dn7wc5.cloudfront.net/marketing/latest/remoteEntry.js`,
+          marketing: `marketing@${domain}/marketing/latest/remoteEntry.js`,
         },
       }),
     ];
@@ -65,8 +65,7 @@ module.exports = () => {
       new ModuleFederationPlugin({
         name: "container",
         remotes: {
-                    marketing: `marketing@https://d3d57pm3dn7wc5.cloudfront.net/marketing/latest/remoteEntry.js`,
-
+          marketing: "marketing@http://localhost:8081/remoteEntry.js",
         },
       }),
       new HtmlWebpackPlugin({
