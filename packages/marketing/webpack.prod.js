@@ -5,6 +5,18 @@ const commonConfig = require('./webpack.config');
 
 const prodConfig = {
   mode: 'production',
+  module: {
+    rules: [
+      {
+        test: /\.(ts|tsx)$/i,
+        loader: "ts-loader",
+        exclude: ["/node_modules/"],
+      },
+    ],
+  },
+  resolve: {
+    extensions: [".tsx", ".ts", ".jsx", ".js"],
+  },
   output: {
     filename: '[name].[contenthash].js',
     publicPath: '/marketing/latest/',

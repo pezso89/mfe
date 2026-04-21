@@ -17,13 +17,10 @@ const config = {
         loader: "ts-loader",
         exclude: ["/node_modules/"],
       },
-
-      // Add your rules for custom modules here
-      // Learn more about loaders from https://webpack.js.org/loaders/
     ],
   },
   resolve: {
-    extensions: [".tsx", ".ts", ".jsx", ".js", "..."],
+    extensions: [".tsx", ".ts", ".jsx", ".js"],
   },
 };
 
