@@ -1,12 +1,11 @@
-const { merge } = require('webpack-merge');
-const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
-const commonConfig = require('./webpack.config');
-const packageJson = require('./package.json');
+const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
+const packageJson = require("./package.json");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 const domain = process.env.PROD_DOMAIN;
 
 const prodConfig = {
-  mode: 'production',
+  mode: "production",
   entry: "./src/index.ts",
   module: {
     rules: [
@@ -21,12 +20,15 @@ const prodConfig = {
     extensions: [".tsx", ".ts", ".jsx", ".js"],
   },
   output: {
-    filename: '[name].[contenthash].js',
-    publicPath: '/container/latest/',
+    filename: "[name].[contenthash].js",
+    publicPath: "/container/latest/",
   },
   plugins: [
+    new HtmlWebpackPlugin({
+      template: "./public/index.html",
+    }),
     new ModuleFederationPlugin({
-      name: 'container',
+      name: "container",
       remotes: {
         marketing: `marketing@${domain}/marketing/latest/remoteEntry.js`,
       },
@@ -35,4 +37,4 @@ const prodConfig = {
   ],
 };
 
-module.exports = merge(commonConfig, prodConfig);
+module.exports = prodConfig

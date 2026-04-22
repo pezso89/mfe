@@ -1,16 +1,27 @@
-const { merge } = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
-const commonConfig = require('./webpack.config');
 const packageJson = require('./package.json');
 
 const devConfig = {
+  entry: "./src/index.ts",
   mode: 'development',
+  module: {
+    rules: [
+      {
+        test: /\.(ts|tsx)$/i,
+        loader: "ts-loader",
+        exclude: ["/node_modules/"],
+      },
+    ],
+  },
+  resolve: {
+    extensions: [".tsx", ".ts", ".jsx", ".js"],
+  },
   devtool: 'source-map',
   devServer: {
     port: 8081,
     historyApiFallback: {
-      index: 'index.html',
+      index: '/index.html',
     },
   },
   plugins: [
@@ -28,4 +39,4 @@ const devConfig = {
   ],
 };
 
-module.exports = merge(commonConfig, devConfig);
+module.exports = devConfig;

@@ -1,18 +1,29 @@
 import React from "react";
-import { Routes, Route, BrowserRouter } from "react-router-dom";
-import { StylesProvider } from "@mui/styles";
+import {
+  Routes,
+  Route,
+  Router,
+  MemoryRouter,
+  BrowserRouter,
+} from "react-router-dom";
+import { createMemoryHistory } from "history";
+import { StylesProvider, createGenerateClassName } from "@mui/styles";
 import Landing from "./components/Landing";
 import Pricing from "./components/Pricing";
 
 const App = () => {
+  const history = createMemoryHistory();
+
+  const generateClassName = createGenerateClassName({
+    productionPrefix: "ma",
+  });
+
   return (
-    <StylesProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Landing/>} />
-          <Route path="/pricing" element={<Pricing/>} />
-        </Routes>
-      </BrowserRouter>
+    <StylesProvider generateClassName={generateClassName}>
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/pricing" element={<Pricing />} />
+      </Routes>
     </StylesProvider>
   );
 };
