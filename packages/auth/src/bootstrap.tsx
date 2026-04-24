@@ -12,7 +12,7 @@ const mount = (el: Element) => {
 };
 
 if (process.env.NODE_ENV === "development") {
-  const root = document.querySelector("#_marketing-dev-root");
+  const root = document.querySelector("#_auth-dev-root");
   if (root) {
     mount(root);
   }

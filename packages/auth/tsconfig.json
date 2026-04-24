@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "preserve",
+    "lib": ["ES2020", "DOM"],
+    "jsx": "react",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "outDir": "./dist",
+    "ignoreDeprecations": "5.0",
+    "rootDir": "./src",
+    "types": ["node"],
+    "moduleResolution": "bundler",
+  },
+  "include": ["src"],
+  "exclude": ["node_modules"],
+}

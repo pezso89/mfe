@@ -1,13 +1,9 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
 const packageJson = require('./package.json');
 
-const devConfig = {
+const prodConfig = {
   entry: "./src/index.ts",
-  mode: 'development',
-  output: {
-    publicPath: "http://localhost:8081/",
-  },
+  mode: 'production',
   module: {
     rules: [
       {
@@ -20,26 +16,20 @@ const devConfig = {
   resolve: {
     extensions: [".tsx", ".ts", ".jsx", ".js"],
   },
-  devtool: 'source-map',
-  devServer: {
-    port: 8081,
-    historyApiFallback: {
-      index: '/index.html',
-    },
+  output: {
+    filename: '[name].[contenthash].js',
+    publicPath: '/auth/latest/',
   },
   plugins: [
     new ModuleFederationPlugin({
-      name: 'marketing',
+      name: 'auth',
       filename: 'remoteEntry.js',
       exposes: {
-        './MarketingApp': './src/App',
+        './AuthApp': './src/App',
       },
       shared: packageJson.dependencies,
-    }),
-    new HtmlWebpackPlugin({
-      template: './public/index.html',
     }),
   ],
 };
 
-module.exports = devConfig;
+module.exports = prodConfig;

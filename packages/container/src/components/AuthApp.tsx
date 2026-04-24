@@ -1,8 +1,8 @@
 import React from "react";
 import Progress from "./Progress";
-const App = React.lazy(() => import("marketing/MarketingApp"));
+const App = React.lazy(() => import("auth/AuthApp"));
 
-const MarketingApp = () => {
+const AuthApp = () => {
   return (
     <React.Suspense fallback={<Progress />}>
       <App />
@@ -10,4 +10,4 @@ const MarketingApp = () => {
   );
 };
 
-export default MarketingApp;
+export default AuthApp;
