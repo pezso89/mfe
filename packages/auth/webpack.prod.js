@@ -28,7 +28,7 @@ const prodConfig = {
         './AuthApp': './src/App',
       },
       remotes: {
-        auth: `container@${domain}/container/latest/remoteEntry.js`,
+        container: `container@${domain}/container/latest/remoteEntry.js`,
       },
       shared: packageJson.dependencies,
     }),
