@@ -27,6 +27,9 @@ const prodConfig = {
       exposes: {
         './AuthApp': './src/App',
       },
+      remotes: {
+        auth: `container@${domain}/container/latest/remoteEntry.js`,
+      },
       shared: packageJson.dependencies,
     }),
   ],

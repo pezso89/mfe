@@ -14,6 +14,7 @@ import {
   useTheme,
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import useStore from "container/hooks/useStore";
 
 function Copyright() {
   return (
@@ -50,8 +51,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignUp({ onSignIn }: { onSignIn: () => void }) {
+export default function SignUp() {
   const classes = useStyles();
+  const store = useStore();
+
+  const onSignIn = () => {
+    store.signInUser();
+  };
 
   return (
     <Container component="main" maxWidth="xs">

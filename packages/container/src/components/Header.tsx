@@ -3,6 +3,8 @@ import { useTheme } from "@mui/material/styles";
 import { makeStyles } from "@mui/styles";
 import { Typography, AppBar, Toolbar, Button } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
+import { useStoreDispatch } from "../hooks/useStoreDispatch";
+import useStore from "../hooks/useStore";
 
 const useStyles = makeStyles(() => ({
   "@global": {
@@ -54,16 +56,15 @@ const useStyles = makeStyles(() => ({
 
 export default function Header({
   signedIn,
-  onSignOut,
 }: {
   signedIn: boolean;
   onSignOut?: () => void;
 }) {
   const classes = useStyles();
-
+  const store = useStore();
   const onClick = () => {
-    if (signedIn && onSignOut) {
-      onSignOut();
+    if (signedIn) {
+      store.signOutUser();
     }
   };
 

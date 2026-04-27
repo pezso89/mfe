@@ -7,7 +7,6 @@ import {
 export default function useStore() {
   const dispatch = useStoreDispatch();
   const signInUser = () => {
-    console.log("Signing in user...");
     dispatch(signIn());
   };
   const signOutUser = () => {

@@ -55,10 +55,14 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export default function SignIn({ onSignIn }: { onSignIn: () => void }) {
+export default function SignIn() {
   const classes = useStyles();
   const store = useStore();
-  store.signInUser();
+
+  const onSignIn = () => {
+    store.signInUser();
+  };
+
   return (
     <Container component="main" maxWidth="xs">
       <div className={classes.paper}>
