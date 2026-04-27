@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { StylesProvider, createGenerateClassName } from "@mui/styles";
 
 import SignIn from "./components/Signin";
@@ -13,6 +13,7 @@ const App = () => {
   return (
     <StylesProvider generateClassName={generateClassName}>
       <Routes>
+        <Route path="/" element={<Navigate to="/signin" />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
       </Routes>

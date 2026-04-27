@@ -2,12 +2,15 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
+import StoreProvider from "container/providers/StoreProvider";
 
 const mount = (el: Element) => {
   ReactDOM.createRoot(el).render(
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>,
+    <StoreProvider>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </StoreProvider>,
   );
 };
 
