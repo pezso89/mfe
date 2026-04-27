@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "start": "webpack serve --mode=development --config webpack.dev.js",
-    "build": "webpack --mode=production --config webpack.prod.js"
+    "build": "webpack --mode=production --config ./webpack.prod.js"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",

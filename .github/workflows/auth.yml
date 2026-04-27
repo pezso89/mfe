@@ -27,7 +27,7 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build the container app
+      - name: Build the auth app
         run: npm run build
         env:
           PROD_DOMAIN: ${{ secrets.PROD_DOMAIN }}
