@@ -70,7 +70,7 @@ export default function SignIn() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign in
+          Sign in to app
         </Typography>
         <form
           onSubmit={(e) => e.preventDefault()}
